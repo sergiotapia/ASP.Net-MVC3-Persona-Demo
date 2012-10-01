@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "ASP.Net MVC3 - Mozilla Persona Demo";
+}
+
+<!-- Just some regular ASP.Net Forms authentication. Let the framework work for you! -->
+@if (User.Identity.IsAuthenticated)
+{
+    <h1>Hey there, you're logged in using Mozilla Persona.</h1>
+}
+else
+{
+    <h1>Aw shucks, only cool kids are allowed here. Please log in!</h1>
+}
