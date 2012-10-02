@@ -19,6 +19,8 @@ Getting Started?
 Read the official Documentation first and foremost. At least a cursory glance to see what it's
 about and why you should be excited!
 
+https://developer.mozilla.org/en-US/docs/Persona
+
 
 General Rundown
 ------------------
