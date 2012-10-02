@@ -2,6 +2,8 @@ ASP.Net MVC3 - Mozilla Persona Demo
 =================================================================================================
 
 ![Mozilla | Persona](http://www.mozilla.org/media/img/persona/title.png "Mozilla Persona")
+
+
 ![Imgur](http://i.imgur.com/sWvQh.jpg "ASP.Net MVC")
 
 This is a small demo web application that shows how you can easily implement 
