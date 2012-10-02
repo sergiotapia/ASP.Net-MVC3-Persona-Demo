@@ -7,6 +7,7 @@ using System.Web.Security;
 using System.Collections.Specialized;
 using System.Net;
 using System.Text;
+using JsonFx.Json;
 
 namespace MVC3PersonaDemo.Controllers
 {
@@ -24,44 +25,31 @@ namespace MVC3PersonaDemo.Controllers
 
             using (var web = new WebClient())
             {
+                // Build the data we're going to POST.
                 var data = new NameValueCollection();
                 data["assertion"] = assertion;
                 data["audience"] = "http://localhost:46758/"; // Use your website's URL here.
 
+                // POST the data to the Persona provider (in this case Mozilla)
                 var response = web.UploadValues("https://verifier.login.persona.org/verify", "POST", data);
                 var buffer = Encoding.Convert(Encoding.GetEncoding("iso-8859-1"), Encoding.UTF8, response);
+
+                // Convert the response to JSON.
                 var tempString = Encoding.UTF8.GetString(buffer, 0, response.Length);
-
-                if (true)
+                var reader = new JsonReader();
+                dynamic output = reader.Read(tempString);
+                if (output.status == "okay")
                 {
-                    
+                    string email = output.email; // Since this is dynamic, convert it to string.
+                    FormsAuthentication.SetAuthCookie(email, true);
+                    return RedirectToAction("Index", "Home");    
                 }
+
+                return RedirectToAction("Index", "Home");
+
+                // Example JSON response.
+                /*{"status":"okay","email":"johndoe@smith.com","audience":"http://localhost:46758/","expires":1349141963794,"issuer":"login.persona.org"}*/
             }
-            return View();
-
-
-            
-            /*# The request has to have an assertion for us to verify
-    if 'assertion' not in request.form:
-        abort(400)
- 
-    # Send the assertion to Mozilla's verifier service.
-    data = {'assertion': request.form['assertion'], 'audience': 'https://example.com:443'}
-    resp = requests.post('https://verifier.login.persona.org/verify', data=data, verify=True)
- 
-    # Did the verifier respond?
-    if resp.ok:
-        # Parse the response
-        verification_data = json.loads(resp.content)
- 
-        # Check if the assertion was valid
-        if verification_data['status'] == 'okay':
-            # Log the user in by setting a secure session cookie
-            session.update({'email': verification_data['email']})
-            return resp.content
- 
-    # Oops, something failed. Abort.
-    abort(500)*/
         }
 
         [HttpPost]
