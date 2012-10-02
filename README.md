@@ -22,7 +22,10 @@ General Rundown
 
 1. You need to add the Persona javascript shiv. For the time being only Firefox offers native BrowserID support, but using this javascript shiv, it will work on all major browsers!
 
+    ```html
     <script src="https://login.persona.org/include.js"></script>
+    ```
+
 
 2. Add the client side scripts needed to work with Persona. 
 
