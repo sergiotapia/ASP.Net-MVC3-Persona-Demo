@@ -20,17 +20,16 @@ about and why you should be excited!
 General Rundown
 ------------------
 
-1. You need to add the Persona javascript shiv. For the time being only Firefox offers native BrowserID support, but using this javascript shiv, it will work on all major browsers!
+1. You need to add the Persona javascript shiv. For the time being only Firefox offers native BrowserID support, but using this javascript shiv, Persona will work on all major browsers!
 
     ```html
     <script src="https://login.persona.org/include.js"></script>
     ```
 
 
-2. Add the client side scripts needed to work with Persona. 
+2. Add the client side scripts needed to work with Persona. It comes down to creating two simple links or button, and invoking some API calls on Persona's `navigation.id` object.
 
-You need two buttons, firing an event on each buttons click (for login and logout).
-
+    ```html
     <script type="text/javascript" language="javascript">
         $(document).ready(function() {
             var signinLink = document.getElementById('signin');
@@ -79,10 +78,12 @@ You need two buttons, firing an event on each buttons click (for login and logou
             });
         });
     </script>
+    ```
 
 
 3. On the server side, create a controller to receive the invoked POST requests:
 
+    ```csharp
     public class AuthController : Controller
     {
         [HttpPost]
@@ -133,4 +134,5 @@ You need two buttons, firing an event on each buttons click (for login and logou
         }
 
     }
+    ```
 
